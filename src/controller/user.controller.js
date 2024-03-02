@@ -39,7 +39,7 @@ const registerUser = asyncHandler(async (req, res) => {
     username: username.toLowerCase(),
   });
   const createdUser = await User.findById(user._id).select(
-    "-password -resfreshToken",
+    "-password -resfreshToken"
   );
   if (!createdUser) {
     await deleteFileFromCloudinary(avatar.public_id);
@@ -58,7 +58,7 @@ const loginUser = asyncHandler(async (req, res) => {
   if (!user) {
     throw new ApiError(
       404,
-      `User doesnot exists with this username!: ${username}`,
+      `User doesnot exists with this username!: ${username}`
     );
   }
   const isPasswordCorrect = await user.isPasswordCorrect(password);
@@ -70,7 +70,7 @@ const loginUser = asyncHandler(async (req, res) => {
   user.refreshToken = generateRefreshToken;
   await user.save({ validateBeforeSave: false });
   const loggedInUser = await User.findById(user._id).select(
-    "-password -refreshToken",
+    "-password -refreshToken"
   );
   const options = {
     httpOnly: true,
@@ -88,8 +88,8 @@ const loginUser = asyncHandler(async (req, res) => {
           accessToken: generateAccessToken,
           refreshToken: generateRefreshToken,
         },
-        `${loggedInUser.username} retrive sucessfully!`,
-      ),
+        `${loggedInUser.username} retrive sucessfully!`
+      )
     );
 });
 const getAllUser = asyncHandler(async (_, res) => {
@@ -136,7 +136,7 @@ const upadateCover = asyncHandler(async (req, res) => {
     { coverImage: coverImage.url },
     {
       new: true,
-    },
+    }
   ).select("-password -resfreshToken  -__v");
   if (!createdUser) {
     await deleteFileFromCloudinary(coverImage.public_id);
@@ -164,7 +164,7 @@ const upadateAvatar = asyncHandler(async (req, res) => {
     { avatar: avatarImage.url },
     {
       new: true,
-    },
+    }
   ).select("-password -resfreshToken  -__v");
   if (!createdUser) {
     await deleteFileFromCloudinary(avatarImage.public_id);
@@ -172,7 +172,9 @@ const upadateAvatar = asyncHandler(async (req, res) => {
   }
   return res
     .status(201)
-    .json(new ApiResponse(201, createdUser, "avatarImage upadted successfully"));
+    .json(
+      new ApiResponse(201, createdUser, "avatarImage upadted successfully")
+    );
 });
 const updatePasswordWord = asyncHandler(async (req, res) => {
   const { password, newPassWord } = req.body;
@@ -188,13 +190,7 @@ const updatePasswordWord = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Password changed successfully"));
 });
 
-const getUserChannelProfile = asyncHandler(async (req, res) => {
-
-  
-
-
-
-});
+const getUserChannelProfile = asyncHandler(async (req, res) => {});
 
 export {
   registerUser,
@@ -204,4 +200,5 @@ export {
   upadateCover,
   upadateAvatar,
   updatePasswordWord,
+  getUserChannelProfile
 };
