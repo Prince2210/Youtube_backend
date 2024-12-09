@@ -189,7 +189,9 @@ const updatePasswordWord = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, {}, "Password changed successfully"));
 });
-
+const getSingleUser = asyncHandler(async (req, res) => {
+  console.log(req.params);
+});
 const getUserChannelProfile = asyncHandler(async (req, res) => {});
 
 export {
@@ -200,5 +202,6 @@ export {
   upadateCover,
   upadateAvatar,
   updatePasswordWord,
-  getUserChannelProfile
+  getSingleUser,
+  getUserChannelProfile,
 };

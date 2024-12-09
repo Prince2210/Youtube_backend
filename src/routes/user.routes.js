@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   getAllUser,
+  getSingleUser,
   loginUser,
   registerUser,
   upadateAvatar,
@@ -20,7 +21,7 @@ router.route("/register").post(
       maxCount: 1,
     },
   ]),
-  registerUser,
+  registerUser
 );
 router.route("/login").post(loginUser);
 router.route("").get(verifyUser, getAllUser);
@@ -33,7 +34,7 @@ router.route("/update-coverimage").post(
       maxCount: 1,
     },
   ]),
-  upadateCover,
+  upadateCover
 );
 router.route("/update-avatar").post(
   verifyUser,
@@ -43,7 +44,8 @@ router.route("/update-avatar").post(
       maxCount: 1,
     },
   ]),
-  upadateAvatar,
+  upadateAvatar
 );
 router.route("/change-password").post(verifyUser, updatePasswordWord);
+router.route("/:username").get(verifyUser, getSingleUser);
 export default router;
